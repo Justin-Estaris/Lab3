@@ -11,7 +11,10 @@
 #include "sudoku.h"
 
 // Put macros or constants here using #define
-#define BUFFER_LEN 256  
+#define BUFFER_LEN 256
+
+//define the array to hold the puzzle
+int sudokuPuzzle[9][9];
 
 //TODO:
 //A thread to check that each column contains the digits 1 through 9
@@ -24,10 +27,14 @@ int main()
     //clear the screen
     system("clear");
     //tell the user the solver has started
-    printf("Sudoku solver started...\n");
+    printf("Sudoku solver started...\n\n");
 
+    char *validity = "test";
     char ch;    //variable to hold single character of puzzle file
     FILE *fp;   //variable to hold the opened puzzle file
+
+    int rowCount = 0;
+    int columnCount = 0;
 
     if ((fp = fopen("puzzle.txt", "r")) == NULL){
         //display error message
@@ -41,10 +48,26 @@ int main()
         //print puzzle contents until there's nothing left
         while(ch != EOF){
             //if the characters not a new line character
-            //TODO: store sudoku puzzle in local variable
-            if(ch != "\n"){
-                //print the character
-                printf("%c",ch);
+            if(ch != '\n'){
+                if(ch != ' '){
+                    //print the character
+                    printf("%c ", ch);
+                    
+                    //store it in the array if its not a space
+                    sudokuPuzzle[columnCount][rowCount] = ch;
+                    
+                    if(columnCount != 8){
+                        //if not the end of the row
+                        //increment the column counter
+                        columnCount++;
+                    }else{
+                        //if end of row
+                        //reset the column back to the start
+                        //increment the row count
+                        columnCount = 0;
+                        rowCount++;
+                    }
+                }
             }else{
                 //go to the next line
                 printf("\n");
@@ -55,13 +78,14 @@ int main()
         }
         //close the file once were done
         fclose(fp);
+
+        //give some space for following messages
+        printf("\n");
     }
 
-    //begin solving the puzzle
+    //begin to verify the puzzle
 
-    //display the solved puzzle
-
-    //save the solved puzzle to a seperate file with the same name plus "_solved"
+    //display the result of the verify
 
     //exit
     return 0;
