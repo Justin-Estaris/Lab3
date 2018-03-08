@@ -24,9 +24,7 @@ int sudokuPuzzle[9][9];
 
 int main()
 {
-    //clear the screen
     system("clear");
-    //tell the user the solver has started
     printf("Sudoku solver started...\n\n");
 
     char *validity = "test";
@@ -37,56 +35,37 @@ int main()
     int columnCount = 0;
 
     if ((fp = fopen("puzzle.txt", "r")) == NULL){
-        //display error message
         fprintf(stderr, "ERROR OPENING PUZZLE FILE\n");
-
-        //program exits with an error
-        return 1;     
+        return 1; // Exit program with error
     }else{
-        //get the first character of the file
-        ch = getc(fp);
+        ch = getc(fp); //get the first character of the file
         //print puzzle contents until there's nothing left
         while(ch != EOF){
             //if the characters not a new line character
             if(ch != '\n'){
-                if(ch != ' '){
-                    //print the character
-                    printf("%c ", ch);
+                if(ch != ' '){ 
+                    printf("%c ", ch); //print the character
+                    sudokuPuzzle[columnCount][rowCount] = ch; //store it in the array if its not a space
                     
-                    //store it in the array if its not a space
-                    sudokuPuzzle[columnCount][rowCount] = ch;
-                    
-                    if(columnCount != 8){
-                        //if not the end of the row
-                        //increment the column counter
+                    if(columnCount != 8){ // Not end of row
                         columnCount++;
-                    }else{
-                        //if end of row
-                        //reset the column back to the start
-                        //increment the row count
-                        columnCount = 0;
+                    }else{               // End of row
+                        columnCount = 0; //reset the column back to the start
                         rowCount++;
                     }
                 }
             }else{
-                //go to the next line
-                printf("\n");
-            }
-
-            //get the next character of the file
-            ch = getc(fp);
-        }
-        //close the file once were done
-        fclose(fp);
-
-        //give some space for following messages
-        printf("\n");
+                printf("\n"); //go to the next line
+            } 
+            ch = getc(fp); //get the next character of the file
+        }  
+        fclose(fp); //close the file once were done
+        printf("\n"); //give some space for following messages
     }
 
     //begin to verify the puzzle
 
     //display the result of the verify
 
-    //exit
-    return 0;
+    return 0; // Exit program
 }

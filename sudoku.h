@@ -11,5 +11,9 @@
 // Include your relevant functions declarations here they must start with the 
 // extern keyword such as in the following example:
 
+extern void checkRow(){
+
+}
+
 
 #endif /* SUDOKU_H_ */
